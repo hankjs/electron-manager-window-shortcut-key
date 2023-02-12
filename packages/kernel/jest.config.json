@@ -1,8 +1,0 @@
-{
-  "roots": ["<rootDir>"],
-  "transform": {
-    "^.+\\.(ts|tsx)$": "ts-jest"
-  },
-  "testMatch": ["<rootDir>/**/*.spec.(ts|tsx|js|mjs)"],
-  "moduleFileExtensions": ["ts", "tsx", "js", "json", "mjs", "node"]
-}

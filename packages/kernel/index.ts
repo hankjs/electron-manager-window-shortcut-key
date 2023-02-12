@@ -1,33 +1,28 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.keys = exports.kernel = void 0;
 // @ts-ignore
-const kernelNApi = __importStar(require("./build/Release/kerneljs.node"));
-exports.kernel = kernelNApi;
-exports.keys = {
+import * as kernelNApi from "./build/Release/kerneljs.node";
+
+interface KernelNApi {
+    getCurrentProcessId(): Promise<number>;
+
+    /*
+    _  __          _                         _
+    | |/ /___ _   _| |__   ___   __ _ _ __ __| |
+    | ' // _ \ | | | '_ \ / _ \ / _` | '__/ _` |
+    | . \  __/ |_| | |_) | (_) | (_| | | | (_| |
+    |_|\_\___|\__, |_.__/ \___/ \__,_|_|  \__,_|
+            |___/
+    */
+    setKeyboardDelay(ms: number): Promise<number>;
+    keyTap(key: string, modifier?: string | string[]): Promise<number>;
+    keyToggle(key: string, down: string, modifier?: string | string[]): Promise<number>;
+    unicodeTap(value: number): Promise<number>;
+    typeString(string: string): Promise<number>;
+    typeStringDelayed(string: string, cpm: number): Promise<number>;
+}
+
+export const kernel = kernelNApi as KernelNApi;
+
+export const keys = {
     key: {
         a: "a",
         b: "b",
@@ -55,6 +50,7 @@ exports.keys = {
         x: "x",
         y: "y",
         z: "z",
+
         "0": "0",
         "1": "1",
         "2": "2",
@@ -65,6 +61,7 @@ exports.keys = {
         "7": "7",
         "8": "8",
         "9": "9",
+
         backspace: "backspace",
         delete: "delete",
         enter: "enter",

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playwright</title>
+
+    <style>
+        body {
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <h1>Playwright</h1>
+    <section>
+        <h2>Key press</h2>
+        
+        <p id="keyPress"></p>
+    </section>
+    
+    <script>
+        const keyPress = document.querySelector("#keyPress");
+
+        document.body.addEventListener("keydown", (e) => {
+            console.log("keydown", e);
+            keyPress.innerHTML = e.code;
+        })
+    </script>
+</body>
+</html>
+

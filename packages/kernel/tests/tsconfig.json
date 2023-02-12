@@ -1,12 +1,15 @@
 {
-    "extends": "../../../tsconfig.json",
-    "compilerOptions": {
-        "types": [
-            "jest"
-        ]
-    },
-    "include": [
-        "../index.js",
-        "."
-    ]
+  "extends":"../tsconfig.json",
+
+  "compilerOptions": {
+    "types": [
+        "playwright",
+        "node"
+    ],
+    "baseUrl": "./"
+  },
+  "include": [
+    ".",
+    ".."
+  ]
 }
