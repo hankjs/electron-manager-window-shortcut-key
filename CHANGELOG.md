@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/zjhcn/electron-manager-window-shortcut-key/compare/v0.0.2...v0.0.3) (2023-02-14)
+
+
+### ✨ Features | 新功能
+
+* add WindowManager ([3ee6e76](https://github.com/zjhcn/electron-manager-window-shortcut-key/commit/3ee6e762420fda3d032a16d0ce358a1dc9dab55e))
+
 ### [0.0.2](https://github.com/zjhcn/electron-manager-window-shortcut-key/compare/v0.0.1...v0.0.2) (2023-02-14)
 
 
