@@ -2,6 +2,10 @@ import path from "path";
 import fs from "fs-extra";
 import { nativeNodeModulesPlugin } from "./nativeNodeModules";
 
+const esbuildDefine = {
+    __DEV__: "false",
+}
+
 class BuildObj {
   async buildMain() {
     const esbuild = require("esbuild");
@@ -9,15 +13,17 @@ class BuildObj {
       entryPoints: ["./src/main/preload.ts"],
       bundle: true,
       platform: "node",
+      define: esbuildDefine,
       outfile: "./dist/preload.js",
       external: ["electron"],
     });
     await esbuild.build({
-      entryPoints: ["./src/main/mainEntry.ts"],
+      entryPoints: ["./src/main/main.ts"],
       bundle: true,
+      define: esbuildDefine,
       platform: "node",
       // minify: true,
-      outfile: "./dist/mainEntry.js",
+      outfile: "./dist/main.js",
       plugins: [nativeNodeModulesPlugin],
       external: ["electron"],
     });
@@ -26,7 +32,7 @@ class BuildObj {
     let pkgJsonPath = path.join(process.cwd(), "package.json");
     let localPkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"));
     let electronConfig = localPkgJson.devDependencies.electron.replace("^", "");
-    localPkgJson.main = "mainEntry.js";
+    localPkgJson.main = "main.js";
     delete localPkgJson.scripts;
     delete localPkgJson.devDependencies;
     localPkgJson.devDependencies = { electron: electronConfig };

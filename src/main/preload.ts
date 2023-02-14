@@ -1,9 +1,18 @@
-import { contextBridge, ipcRenderer } from 'electron';
+import { contextBridge } from 'electron';
+import { Preload } from "src/preload";
+import { KernelBridge } from "./ipc/kernel/preload";
+import { GlobalShortcutBridge } from "./ipc/globalShortcut/preload";
+import { ElectronBridge } from "./ipc/electron/preload";
 
-contextBridge.exposeInMainWorld('electronAPI', {
-  node: () => process.versions.node,
-  chrome: () => process.versions.chrome,
-  electron: () => process.versions.electron,
-  getCurrentProcessId: () => ipcRenderer.invoke("getCurrentProcessId"),
-  minimizeWindow: () => ipcRenderer.invoke("minimizeWindow"),
-});
+const api: Preload.ElectronBridge = {
+    versions: {
+        node: () => process.versions.node,
+        chrome: () => process.versions.chrome,
+        electron: () => process.versions.electron,
+    },
+    kernel: KernelBridge,
+    globalShortcut: GlobalShortcutBridge,
+    electron: ElectronBridge
+}
+
+contextBridge.exposeInMainWorld('electronBridge', api);

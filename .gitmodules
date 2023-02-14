@@ -1,0 +1,3 @@
+[submodule "packages/kernel"]
+	path = packages/kernel
+	url = git@github.com:zjhcn/kernel.git

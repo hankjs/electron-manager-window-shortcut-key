@@ -5,7 +5,9 @@ import path from "path";
 let schemeConfig = { standard: true, supportFetchAPI: true, bypassCSP: true, corsEnabled: true, stream: true };
 protocol.registerSchemesAsPrivileged([{ scheme: "app", privileges: schemeConfig }]);
 
-export class CustomScheme {
+export class AppScheme {
+private static isRegister = false;
+
   private static getMimeType(extension: string) {
     let mimeType = "";
     if (extension === ".js") {
@@ -22,6 +24,10 @@ export class CustomScheme {
     return mimeType;
   }
   static registerScheme() {
+    if (AppScheme.isRegister) {
+        return;
+    }
+
     protocol.registerStreamProtocol("app", (request, callback) => {
       let pathName = new URL(request.url).pathname;
       let extension = path.extname(pathName).toLowerCase();
@@ -35,6 +41,7 @@ export class CustomScheme {
         headers: { "content-type": this.getMimeType(extension) },
         data: fs.createReadStream(tarFile),
       });
+      AppScheme.isRegister = true;
     });
   }
 }
