@@ -1,4 +1,6 @@
 import { BrowserWindow, ipcMain, app } from "electron";
+import cloneDeep from "lodash-es/cloneDeep";
+import { WINDOW_CONFIG } from "../windows/config";
 
 export class CommonWindowEvent {
   private static getWin(event: any) {
@@ -44,21 +46,7 @@ export class CommonWindowEvent {
     });
     //@ts-ignore
     win.webContents.setWindowOpenHandler((param) => {
-      let config = {
-        frame: false,
-        show: true,
-        parent: null,
-        webPreferences: {
-          nodeIntegration: false,
-          webSecurity: false,
-          allowRunningInsecureContent: true,
-          contextIsolation: true,
-          webviewTag: true,
-          spellcheck: false,
-          disableHtmlFullscreenWindowResize: true,
-          nativeWindowOpen: true,
-        },
-      };
+      let config = cloneDeep(WINDOW_CONFIG);
       let features = JSON.parse(param.features);
       for (let p in features) {
         if (p === "webPreferences") {

@@ -14,7 +14,8 @@
       "DOM"
     ],
     "types": [
-        "@wm/kernel"
+        "@wm/kernel",
+        "lodash-es"
     ],
     "skipLibCheck": true,
     "noEmit": true,
@@ -32,7 +33,8 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "packages/*/src/*.ts",
-    "packages/*/src/*.d.ts"
+    "packages/*/src/*.d.ts",
+    "lodash-es"
   ],
   "references": [
     {
