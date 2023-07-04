@@ -1,11 +1,9 @@
-export type Install = (...options: any[]) => void;
+export interface I_Plugin {
+    onAttach(): void;
+    onDetach(): void;
+}
 
-export abstract class Plugin {
+export abstract class Plugin implements I_Plugin {
     abstract onAttach(): void;
     abstract onDetach(): void;
-
-    /** need implemented. */
-    static install(...options: any[]) {
-        throw new Error("Method not implemented.");
-    }
 }

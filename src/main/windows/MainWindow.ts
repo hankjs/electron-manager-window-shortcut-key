@@ -3,11 +3,9 @@ import { CommonWindowEvent } from "../ipc/CommonWindowEvent";
 import { AppScheme } from "../protocol/app";
 import { WINDOW_CONFIG } from "./config";
 import { BaseWindow } from "./BaseWindow";
+import { setting } from "../setting/Setting";
 
 export class MainWindow extends BaseWindow {
-    static devtool: boolean = __DEV__;
-    static envURL: string = process.argv[2];
-    static schemeURL = "app://index.html";
 
     #browserWindow: BrowserWindow;
 
@@ -17,17 +15,18 @@ export class MainWindow extends BaseWindow {
     }
 
     loadURL() {
-        if (MainWindow.envURL) {
-            this.#browserWindow.loadURL(MainWindow.envURL);
+        if (setting.mainWindow.envURL) {
+            this.#browserWindow.loadURL(setting.mainWindow.envURL);
         } else {
             AppScheme.registerScheme();
-            this.#browserWindow.loadURL(`app://index.html`);
+            this.#browserWindow.loadURL(setting.mainWindow.schemeURL);
         }
     }
 
     onAttach() {
         this.loadURL();
-        if (MainWindow.devtool) {
+
+        if (setting.mainWindow.devtool) {
             this.#browserWindow.webContents.openDevTools();
         }
     }
